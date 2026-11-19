@@ -15,8 +15,12 @@
 // the camera smoothly through the app's eased fly-to, and this rotation
 // stands down while any such flight is in progress.
 //
-// All idle timing uses performance.now(), the same clock as the
-// requestAnimationFrame timestamps this module compares against.
+// Rotation is driven by a short interval timer, not by animation
+// frames: animation frames can be throttled or paused entirely while a
+// tab is in the background or occluded, which would stall the globe.
+// Each tick is credited by the true elapsed time, so the globe turns at
+// the same speed however often the timer fires. All idle timing uses
+// performance.now().
 
 if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   const prefersReducedMotion =
@@ -26,11 +30,13 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   if (!prefersReducedMotion) {
     // One full turn takes about twelve minutes: slow, smooth, ambient.
     const ROTATION_DEGREES_PER_SECOND = 0.5;
+    const ROTATION_INTERVAL_MILLISECONDS = 100;
+    const MAX_STEP_SECONDS = 1;
     const IDLE_MILLISECONDS = 10000;
     const STARTUP_DELAY_MILLISECONDS = 3000;
     const POLL_INTERVAL_MILLISECONDS = 500;
     const POLL_TIMEOUT_MILLISECONDS = 300000;
-    // One frame of our own rotation moves the camera only a few
+    // One tick of our own rotation moves the camera only a few
     // kilometres at globe height; anything moving much faster than
     // that is the user or the app, so the rotation stands down.
     const EXTERNAL_MOVE_METERS = 20000;
@@ -39,6 +45,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
     let lastCameraPosition = null;
     let lastTick = 0;
     let rotationFailed = false;
+    let rotationTimer = 0;
 
     const markInteraction = () => {
       lastInteraction = performance.now();
@@ -57,13 +64,13 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
       return viewer;
     };
 
-    const rotateStep = (now) => {
+    const rotateStep = () => {
       if (rotationFailed) return;
-      requestAnimationFrame(rotateStep);
       try {
         const viewer = getViewer();
         if (!viewer) return;
-        const deltaSeconds = Math.min((now - lastTick) / 1000, 0.1);
+        const now = performance.now();
+        const deltaSeconds = Math.min((now - lastTick) / 1000, MAX_STEP_SECONDS);
         lastTick = now;
         if (document.visibilityState === 'hidden') return;
         if (now - lastInteraction < IDLE_MILLISECONDS) {
@@ -100,6 +107,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
         lastCameraPosition = camera.position.clone();
       } catch (error) {
         rotationFailed = true;
+        if (rotationTimer) window.clearInterval(rotationTimer);
         console.warn('Idle globe rotation disabled:', error);
       }
     };
@@ -112,7 +120,10 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           lastTick = performance.now();
           window.setTimeout(() => {
             lastInteraction = performance.now();
-            requestAnimationFrame(rotateStep);
+            rotationTimer = window.setInterval(
+              rotateStep,
+              ROTATION_INTERVAL_MILLISECONDS,
+            );
           }, STARTUP_DELAY_MILLISECONDS);
           return;
         }
