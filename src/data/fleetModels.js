@@ -377,7 +377,7 @@ export function fleetModelSpec(set, name, length, { beam } = {}) {
   const elevationM = set.types.transit?.elevation?.[name] || 0;
   return Object.freeze({
     model: name,
-    url: FLEET_MODEL_BASE + model.file,
+    url: `${import.meta.env?.BASE_URL || '/'}${FLEET_MODEL_BASE.slice(1) + model.file}`,
     category: model.category,
     icon: model.icon,
     length: model.length * scaleXYZ[0],
@@ -587,7 +587,7 @@ export function fleetModelSetLoading() {
  * @returns {Promise<object>}
  */
 export function loadFleetModelSet({
-  resolveAsset = (url) => url,
+  resolveAsset = (url) => `${import.meta.env?.BASE_URL || '/'}${url.replace(/^//, '')}`,
   fetchImpl = globalThis.fetch,
   now = () => globalThis.performance?.now?.() ?? Date.now(),
 } = {}) {
