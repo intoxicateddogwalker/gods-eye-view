@@ -1,1 +1,189 @@
-{"generated_at":"2026-11-19T14:00:00+00:00","generated_by":"seer-swarm/0.1.0","horizon_minutes":180,"lessons":[{"lesson":"Wind predictions for Tulsa ran 2 hours early — require two consecutive rising readings before calling a build-up.","prediction_id":"pred-202611181200-2","recorded_at":"2026-11-18T18:00:00+00:00"},{"lesson":"Flight-density calls made on a single 5-minute bucket are noise — use the 30-minute trend instead.","prediction_id":"pred-202611180900-1","recorded_at":"2026-11-18T12:00:00+00:00"}],"predictions":[{"basis":"Open-Meteo Tulsa wind trending up; weather-oklahoma mini signal strength 0.7.","confidence":0.68,"id":"pred-202611191400-1","kind":"weather_impact","mini_ids":["weather-oklahoma","region-tulsa"],"outcome":null,"prediction":"Wind gusts in Tulsa will rise above 40 km/h within the next 3 hours.","region":{"lat":36.15,"lon":-95.99,"name":"Tulsa, Oklahoma","radius_km":80},"scored_at":null,"status":"open","title":"Tulsa wind gusts build through the afternoon","window":{"end":"2026-11-19T17:00:00+00:00","start":"2026-11-19T14:00:00+00:00"}},{"basis":"USGS M5.2 in 24h; quake-global-aftershock mini signal strength 0.7.","confidence":0.72,"id":"pred-202611191400-2","kind":"quake_aftershock","mini_ids":["quake-global-aftershock","quake-japan-aftershock"],"outcome":null,"prediction":"At least one M4.5+ aftershock will occur within 6 hours of the M5.2 quake.","region":{"lat":36.0,"lon":141.0,"name":"Offshore Japan","radius_km":300},"scored_at":null,"status":"open","title":"Aftershocks likely after M5.2 quake","window":{"end":"2026-11-19T20:00:00+00:00","start":"2026-11-19T14:00:00+00:00"}},{"basis":"Chronos-2 forecast on 5-min flight counts is rising; flights-global-density mini.","confidence":0.61,"id":"pred-202611191400-3","kind":"flight_density","mini_ids":["flights-global-density","flights-north-atlantic"],"outcome":null,"prediction":"Civil flight counts on the North Atlantic corridor will rise through the next 3 hours.","region":{"lat":45.0,"lon":-30.0,"name":"North Atlantic","radius_km":1500},"scored_at":null,"status":"open","title":"North Atlantic traffic stays busy into the evening","window":{"end":"2026-11-19T17:00:00+00:00","start":"2026-11-19T14:00:00+00:00"}}],"schema":{"lessons":[{"lesson":"one sentence: what the swarm learned from the miss","prediction_id":"id of a prediction that was wrong","recorded_at":"ISO time"}],"prediction":{"basis":"one sentence: what feed data + which minis","confidence":"0.0 to 1.0","id":"pred-YYYYMMDDHHMM-N (unique)","kind":"flight_density | quake_aftershock | fire_spread | traffic_buildup | weather_impact","mini_ids":["mini ids whose signals support this prediction"],"outcome":"null until scored, then a short sentence of what actually happened","prediction":"one sentence saying what will happen","region":{"lat":0.0,"lon":0.0,"name":"place or area","radius_km":500},"scored_at":"null until scored, then ISO time","status":"open | hit | miss | expired","title":"short plain title","window":{"end":"ISO time","start":"ISO time"}},"scoreboard":{"accuracy":"hits / total_scored, or null","by_kind":{"kind":{"accuracy":null,"hits":0,"misses":0}},"hits":"number that came true","misses":"number that did not","total_scored":"number of predictions scored so far"}},"scoreboard":{"accuracy":0.667,"by_kind":{"flight_density":{"accuracy":0.6,"hits":3,"misses":2},"quake_aftershock":{"accuracy":0.667,"hits":2,"misses":1},"weather_impact":{"accuracy":0.75,"hits":3,"misses":1}},"hits":8,"misses":4,"total_scored":12},"version":2}
+{
+  "generated_at": "2026-11-19T14:24:47+00:00",
+  "generated_by": "seer-swarm/0.1.0 (watch Action)",
+  "horizon_minutes": 180,
+  "lessons": [
+    {
+      "lesson": "Wind predictions for Tulsa ran 2 hours early \u2014 require two consecutive rising readings before calling a build-up.",
+      "prediction_id": "pred-202611181200-2",
+      "recorded_at": "2026-11-18T18:00:00+00:00"
+    },
+    {
+      "lesson": "Flight-density calls made on a single 5-minute bucket are noise \u2014 use the 30-minute trend instead.",
+      "prediction_id": "pred-202611180900-1",
+      "recorded_at": "2026-11-18T12:00:00+00:00"
+    }
+  ],
+  "predictions": [
+    {
+      "basis": "Open-Meteo Tulsa wind trending up; weather-oklahoma mini signal strength 0.7.",
+      "confidence": 0.68,
+      "id": "pred-202611191400-1",
+      "kind": "weather_impact",
+      "mini_ids": [
+        "weather-oklahoma",
+        "region-tulsa"
+      ],
+      "outcome": null,
+      "prediction": "Wind gusts in Tulsa will rise above 40 km/h within the next 3 hours.",
+      "region": {
+        "lat": 36.15,
+        "lon": -95.99,
+        "name": "Tulsa, Oklahoma",
+        "radius_km": 80
+      },
+      "scored_at": null,
+      "status": "open",
+      "title": "Tulsa wind gusts build through the afternoon",
+      "window": {
+        "end": "2026-11-19T17:00:00+00:00",
+        "start": "2026-11-19T14:00:00+00:00"
+      }
+    },
+    {
+      "basis": "USGS M5.2 in 24h; quake-global-aftershock mini signal strength 0.7.",
+      "confidence": 0.72,
+      "id": "pred-202611191400-2",
+      "kind": "quake_aftershock",
+      "mini_ids": [
+        "quake-global-aftershock",
+        "quake-japan-aftershock"
+      ],
+      "outcome": null,
+      "prediction": "At least one M4.5+ aftershock will occur within 6 hours of the M5.2 quake.",
+      "region": {
+        "lat": 36.0,
+        "lon": 141.0,
+        "name": "Offshore Japan",
+        "radius_km": 300
+      },
+      "scored_at": null,
+      "status": "open",
+      "title": "Aftershocks likely after M5.2 quake",
+      "window": {
+        "end": "2026-11-19T20:00:00+00:00",
+        "start": "2026-11-19T14:00:00+00:00"
+      }
+    },
+    {
+      "basis": "Chronos-2 forecast on 5-min flight counts is rising; flights-global-density mini.",
+      "confidence": 0.61,
+      "id": "pred-202611191400-3",
+      "kind": "flight_density",
+      "mini_ids": [
+        "flights-global-density",
+        "flights-north-atlantic"
+      ],
+      "outcome": null,
+      "prediction": "Civil flight counts on the North Atlantic corridor will rise through the next 3 hours.",
+      "region": {
+        "lat": 45.0,
+        "lon": -30.0,
+        "name": "North Atlantic",
+        "radius_km": 1500
+      },
+      "scored_at": null,
+      "status": "open",
+      "title": "North Atlantic traffic stays busy into the evening",
+      "window": {
+        "end": "2026-11-19T17:00:00+00:00",
+        "start": "2026-11-19T14:00:00+00:00"
+      }
+    },
+    {
+      "id": "pred-202611191424-q1",
+      "kind": "quake_aftershock",
+      "title": "Aftershocks likely after M5+ quake",
+      "region": {
+        "name": "global",
+        "lat": 0,
+        "lon": 0,
+        "radius_km": 1000
+      },
+      "prediction": "At least one M4.5+ aftershock will occur within 6 hours.",
+      "confidence": 0.72,
+      "window": {
+        "start": "2026-11-19T14:24:47+00:00",
+        "end": "2026-11-19T20:24:47+00:00"
+      },
+      "basis": "7 M5+ quake(s) in 24h (USGS).",
+      "mini_ids": [
+        "quake-global-aftershock",
+        "quake-global-trend"
+      ],
+      "status": "open",
+      "outcome": null,
+      "scored_at": null
+    }
+  ],
+  "schema": {
+    "lessons": [
+      {
+        "lesson": "one sentence: what the swarm learned from the miss",
+        "prediction_id": "id of a prediction that was wrong",
+        "recorded_at": "ISO time"
+      }
+    ],
+    "prediction": {
+      "basis": "one sentence: what feed data + which minis",
+      "confidence": "0.0 to 1.0",
+      "id": "pred-YYYYMMDDHHMM-N (unique)",
+      "kind": "flight_density | quake_aftershock | fire_spread | traffic_buildup | weather_impact",
+      "mini_ids": [
+        "mini ids whose signals support this prediction"
+      ],
+      "outcome": "null until scored, then a short sentence of what actually happened",
+      "prediction": "one sentence saying what will happen",
+      "region": {
+        "lat": 0.0,
+        "lon": 0.0,
+        "name": "place or area",
+        "radius_km": 500
+      },
+      "scored_at": "null until scored, then ISO time",
+      "status": "open | hit | miss | expired",
+      "title": "short plain title",
+      "window": {
+        "end": "ISO time",
+        "start": "ISO time"
+      }
+    },
+    "scoreboard": {
+      "accuracy": "hits / total_scored, or null",
+      "by_kind": {
+        "kind": {
+          "accuracy": null,
+          "hits": 0,
+          "misses": 0
+        }
+      },
+      "hits": "number that came true",
+      "misses": "number that did not",
+      "total_scored": "number of predictions scored so far"
+    }
+  },
+  "scoreboard": {
+    "accuracy": 0.667,
+    "by_kind": {
+      "flight_density": {
+        "accuracy": 0.6,
+        "hits": 3,
+        "misses": 2
+      },
+      "quake_aftershock": {
+        "accuracy": 0.667,
+        "hits": 2,
+        "misses": 1
+      },
+      "weather_impact": {
+        "accuracy": 0.75,
+        "hits": 3,
+        "misses": 1
+      }
+    },
+    "hits": 8,
+    "misses": 4,
+    "total_scored": 12
+  },
+  "version": 2
+}
