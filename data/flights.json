@@ -1,9 +1,8 @@
 {"ac":[
-{"hex":"4d2505","type":"adsb_icao","flight":"LER2921 ","r":"9H-HFI","t":"A333","alt_baro":36000,"alt_geom":37675,"gs":398.1,"track":237.31,"baro_rate":0,"squawk":"2000","emergency":"none","category":"A5","nav_qnh":1012.8,"nav_altitude_mcp":36000,"lat":34.553259,"lon":-27.190475,"nic":8,"rc":186,"seen_pos":2.497,"version":2,"nic_baro":1,"nac_p":10,"nac_v":4,"sil":3,"sil_type":"perhour","gva":2,"sda":3,"alert":0,"spi":0,"mlat":[],"tisb":[],"messages":8336,"seen":0.6,"rssi":-30.3,"dst":140.829,"dir":100.2}
 ]
 ,"msg": "No error"
-,"now": 1795096608501
-,"total": 1
-,"ctime": 1795096608501
+,"now": 1795100014501
+,"total": 0
+,"ctime": 1795100014501
 ,"ptime": 0
 }
