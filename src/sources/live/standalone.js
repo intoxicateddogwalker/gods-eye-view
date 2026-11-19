@@ -175,7 +175,7 @@ export function createFlightSource({
       );
       if (!response.ok) {
         if (!params.size) throw openSkyError(response);
-        return adsbLolFlightSnapshot(fetchImpl, params, { signal, now });
+        return flightFallback(fetchImpl, params, { signal, now });
       }
       return {
         ...openSkySnapshot(payload, {
@@ -236,7 +236,7 @@ export function createMilitarySource({
         'Military aircraft',
       );
       if (!response.ok) {
-        const fallback = await adsbLolMilitary(fetchImpl, { signal });
+        const fallback = await militaryFallback(fetchImpl, { signal });
         return readsbIdentities(fallback.payload);
       }
       return readsbIdentities(payload);
@@ -249,10 +249,10 @@ export function createMilitarySource({
         'Military aircraft',
       );
       if (!response.ok) {
-        const fallback = await adsbLolMilitary(fetchImpl, { signal });
+        const fallback = await militaryFallback(fetchImpl, { signal });
         return {
           ...readsbSnapshot(fallback.payload, {
-            source: 'adsb.lol',
+            source: fallback.source,
             observedAtMs: now(),
             now: now(),
             stale: false,
@@ -343,3 +343,59 @@ export function createVesselSource({
     },
   };
 }
+// GitHub-hosted feed; raw.githubusercontent.com serves open CORS.
+const GITHUB_FEED_BASE =
+  'https://raw.githubusercontent.com/intoxicateddogwalker/' +
+  'gods-eye-view/main/data/';
+const GITHUB_FEED_FLIGHTS = GITHUB_FEED_BASE + 'flights.json';
+const GITHUB_FEED_MILITARY = GITHUB_FEED_BASE + 'military.json';
+
+// Flights from the GitHub-hosted feed, when adsb.lol is unreachable.
+async function githubFeedFlightSnapshot(fetchImpl, { signal, now }) {
+  const { response, payload } = await readResponse(
+    fetchImpl,
+    GITHUB_FEED_FLIGHTS,
+    { signal },
+    'Flights',
+  );
+  if (!response.ok) throw httpError(response, 'Flights');
+  const snapshot = openSkySnapshot(normalizeAdsbLolPointResponse(payload), {
+    source: 'github-feed',
+    coverage: '250 nm around the feed centre',
+    now: now(),
+  });
+  return { ...snapshot, status: response.status };
+}
+
+// Military feed from the GitHub-hosted feed, when adsb.lol is unreachable.
+async function githubFeedMilitary(fetchImpl, { signal }) {
+  const { response, payload } = await readResponse(
+    fetchImpl,
+    GITHUB_FEED_MILITARY,
+    { signal },
+    'Military aircraft',
+  );
+  if (!response.ok) throw httpError(response, 'Military aircraft');
+  return { response, payload };
+}
+
+// Flights fallback: adsb.lol direct, then the GitHub-hosted feed.
+async function flightFallback(fetchImpl, params, { signal, now }) {
+  try {
+    return await adsbLolFlightSnapshot(fetchImpl, params, { signal, now });
+  } catch {
+    return githubFeedFlightSnapshot(fetchImpl, { signal, now });
+  }
+}
+
+// Military fallback: adsb.lol direct, then the GitHub-hosted feed.
+async function militaryFallback(fetchImpl, { signal }) {
+  try {
+    const direct = await adsbLolMilitary(fetchImpl, { signal });
+    return { ...direct, source: 'adsb.lol' };
+  } catch {
+    const cached = await githubFeedMilitary(fetchImpl, { signal });
+    return { ...cached, source: 'github-feed' };
+  }
+}
+
