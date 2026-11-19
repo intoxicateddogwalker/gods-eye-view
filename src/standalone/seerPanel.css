@@ -1,0 +1,26 @@
+/* Seer prediction swarm panel styles (INTEGRATION.md section 3).
+   Dark glassy HUD panels matching the existing HUD, neon cyan accents. */
+#seer-panel-root{position:fixed;top:64px;right:16px;z-index:1200;width:min(420px,calc(100vw - 32px));max-width:420px;max-height:calc(100vh - 84px);overflow:auto}
+.seer-toggle{position:fixed;top:16px;right:16px;z-index:1201;padding:8px 12px;border:1px solid rgba(0,229,255,.45);border-radius:8px;background:rgba(10,18,28,.85);color:#e6f4ff;font:inherit;cursor:pointer;backdrop-filter:blur(6px)}
+.seer-toggle:hover{border-color:#00e5ff}
+.seer-panel{background:rgba(10,18,28,.85);border:1px solid rgba(0,229,255,.35);border-radius:10px;padding:14px;color:#e6f4ff;font-family:inherit;backdrop-filter:blur(6px)}
+.seer-head{font-weight:700;letter-spacing:.08em;margin-bottom:10px}
+.seer-link{float:right;color:#00e5ff;font-size:12px}
+.seer-meter{display:flex;align-items:baseline;gap:10px;margin:8px 0 12px}
+.seer-meter-num{font-size:28px;font-weight:800;color:#00e5ff}
+.seer-meter-label{font-size:12px;opacity:.8}
+.seer-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+.seer-table th,.seer-table td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+.seer-pred{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px;margin-bottom:10px}
+.seer-pred-head{font-weight:600;margin-bottom:4px}
+.seer-pred-body{font-size:13px;margin-bottom:6px}
+.seer-pred-meta{font-size:11px;opacity:.75;margin-bottom:6px}
+.seer-conf{display:flex;align-items:center;gap:8px;font-size:12px}
+.seer-conf-fill{height:6px;border-radius:3px;background:#00e5ff}
+.seer-conf-high{background:#00e5a0}.seer-conf-mid{background:#ffc233}.seer-conf-low{background:#ff5d5d}
+.seer-chip{font-size:11px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,.12)}
+.seer-hit{background:rgba(0,229,160,.25)}.seer-miss{background:rgba(255,93,93,.25)}.seer-open{background:rgba(0,229,255,.2)}
+.seer-flag{color:#ffc233;font-weight:700;font-size:11px}
+.seer-empty{opacity:.7;font-size:13px}
+.seer-dim{opacity:.65}
+.seer-foot{font-size:11px;margin-top:10px}
