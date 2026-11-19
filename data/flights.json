@@ -1,10 +1,9 @@
 {"ac":[
-{"hex":"e80445","type":"adsb_icao","flight":"LPE2484 ","r":"CC-BGD","t":"B789","alt_baro":38975,"alt_geom":40225,"gs":575.3,"track":76.33,"geom_rate":0,"squawk":"2000","emergency":"none","category":"A5","nav_qnh":1012.8,"nav_altitude_mcp":39008,"nav_heading":85.78,"nav_modes":["autopilot","vnav","tcas"],"lat":38.307907,"lon":-28.494152,"nic":8,"rc":186,"seen_pos":0.075,"version":2,"nic_baro":1,"nac_p":9,"nac_v":1,"sil":3,"sil_type":"perhour","gva":2,"sda":2,"alert":0,"spi":0,"mlat":[],"tisb":[],"messages":2679,"seen":0.1,"rssi":-20.4,"dst":211.428,"dir":19.6},
-{"hex":"485000","type":"adsb_icao","flight":"KLM195  ","r":"PH-BVK","t":"B77W","alt_baro":30000,"alt_geom":31325,"gs":443.8,"track":222.53,"baro_rate":0,"squawk":"2000","emergency":"none","category":"A5","nav_qnh":1012.8,"nav_altitude_mcp":30016,"nav_heading":236.95,"lat":36.420090,"lon":-28.457737,"nic":8,"rc":186,"seen_pos":0.075,"version":2,"nic_baro":1,"nac_p":10,"nac_v":2,"sil":3,"sil_type":"perhour","gva":2,"sda":2,"alert":0,"spi":0,"mlat":[],"tisb":[],"messages":12167,"seen":0.1,"rssi":-18.1,"dst":113.640,"dir":41.0}
+{"hex":"4d2505","type":"adsb_icao","flight":"LER2921 ","r":"9H-HFI","t":"A333","alt_baro":36000,"alt_geom":37675,"gs":398.1,"track":237.31,"baro_rate":0,"squawk":"2000","emergency":"none","category":"A5","nav_qnh":1012.8,"nav_altitude_mcp":36000,"lat":34.553259,"lon":-27.190475,"nic":8,"rc":186,"seen_pos":2.497,"version":2,"nic_baro":1,"nac_p":10,"nac_v":4,"sil":3,"sil_type":"perhour","gva":2,"sda":3,"alert":0,"spi":0,"mlat":[],"tisb":[],"messages":8336,"seen":0.6,"rssi":-30.3,"dst":140.829,"dir":100.2}
 ]
 ,"msg": "No error"
-,"now": 1795091712500
-,"total": 2
-,"ctime": 1795091712500
+,"now": 1795096608501
+,"total": 1
+,"ctime": 1795096608501
 ,"ptime": 0
 }
