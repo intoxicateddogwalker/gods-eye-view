@@ -104,3 +104,31 @@ export function createStandaloneApplication({
       createStandaloneTools({ ...context, loadingScreen, placeSearch, voice }),
   });
 }
+// Seer panel wiring (INTEGRATION.md section 3).import "./seerPanel.js";
+import "./seerPanel.css";
+
+const seerPanelRoot =
+  document.getElementById("seer-panel-root") ||
+  (() => {
+    const root = document.createElement("div");
+    root.id = "seer-panel-root";
+    document.body.appendChild(root);
+    return root;
+  })();
+
+if (window.SeerPanel) {
+  window.SeerPanel.init("seer-panel-root");
+  const seerToggle = document.createElement("button");
+  seerToggle.type = "button";
+  seerToggle.id = "seer-toggle";
+  seerToggle.className = "seer-toggle";
+  seerToggle.textContent = "Seer \u{1F441}\uFE0F";
+  seerToggle.setAttribute("aria-expanded", "true");
+  seerToggle.addEventListener("click", () => {
+    const hidden = seerPanelRoot.style.display === "none";
+    seerPanelRoot.style.display = hidden ? "" : "none";
+    seerToggle.setAttribute("aria-expanded", String(hidden));
+  });
+  document.body.appendChild(seerToggle);
+}
+import "./seerPanel.js";
