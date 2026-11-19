@@ -587,7 +587,7 @@ export function fleetModelSetLoading() {
  * @returns {Promise<object>}
  */
 export function loadFleetModelSet({
-  resolveAsset = (url) => `${import.meta.env?.BASE_URL || '/'}${url.replace(/^//, '')}`,
+  resolveAsset = (url) => `${import.meta.env?.BASE_URL || '/'}${url.replace(/^\//, '')}`,
   fetchImpl = globalThis.fetch,
   now = () => globalThis.performance?.now?.() ?? Date.now(),
 } = {}) {
