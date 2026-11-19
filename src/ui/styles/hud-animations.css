@@ -1,0 +1,266 @@
+/* Futuristic motion: 3D depth, pulsing markers, flowing motion and the
+   animated boot sequence. Visual only; the globe, live data layers and
+   the idle auto-rotation (src/standalone/hudAnimations.js) are untouched.
+   All motion is lightweight and disabled under prefers-reduced-motion. */
+
+/* --- 3D depth: layered shadows on the HUD panels. --- */
+.gev-side-panel,
+.gev-command-dock,
+.gev-welcome-dialog {
+  box-shadow:
+    0 1px 0 rgba(148, 233, 255, 0.14) inset,
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 32px rgba(34, 211, 238, 0.1);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.gev-side-panel:hover,
+.gev-command-dock:hover {
+  border-color: rgba(94, 234, 255, 0.38);
+  box-shadow:
+    0 1px 0 rgba(148, 233, 255, 0.18) inset,
+    0 28px 70px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(34, 211, 238, 0.16);
+}
+
+/* Slight perspective tilt on panel headers and feature cards: depth
+   without disturbing the positioned panels themselves. */
+.gev-side-panel__header {
+  transform: perspective(900px) rotateX(1.5deg);
+  transform-origin: top center;
+}
+
+.gev-welcome-dialog__feature {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.gev-welcome-dialog__feature:hover {
+  transform: perspective(900px) rotateX(-2deg) translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 22px rgba(34, 211, 238, 0.14);
+}
+
+.gev-install-card:hover {
+  transform: perspective(900px) rotateX(-1deg);
+}
+
+/* --- Smooth slide/fade transitions when panels open and close. ---
+   Panels mount when they open, so these run as enter animations; the
+   transitions above smooth every hover and state change. */
+.gev-side-panel {
+  animation: gev-panel-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gev-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px) perspective(1200px) rotateY(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gev-welcome-dialog {
+  animation: gev-dialog-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gev-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gev-command-dock {
+  animation: gev-dock-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gev-dock-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gev-omnibar {
+  animation: gev-omnibar-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gev-omnibar-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gev-cockpit {
+  animation: gev-cockpit-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gev-cockpit-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Pulsing markers and flowing motion on live layer elements. --- */
+.gev-lens-ribbon__chip--active {
+  animation: gev-marker-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes gev-marker-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 16px rgba(34, 211, 238, 0.35),
+      inset 0 0 12px rgba(34, 211, 238, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 26px rgba(34, 211, 238, 0.6),
+      inset 0 0 16px rgba(34, 211, 238, 0.2);
+  }
+}
+
+.gev-intel-hud__pill {
+  animation: gev-pill-breathe 3.2s ease-in-out infinite;
+}
+
+@keyframes gev-pill-breathe {
+  0%,
+  100% {
+    opacity: 0.92;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* A faint light band flows along the bottom edge of side panel headers. */
+.gev-side-panel__header {
+  background-image: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.35), transparent);
+  background-size: 200% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  animation: gev-flow 3.5s linear infinite;
+}
+
+@keyframes gev-flow {
+  from {
+    background-position: 200% 100%;
+  }
+  to {
+    background-position: -200% 100%;
+  }
+}
+
+/* --- Animated loading / boot sequence: a short futuristic intro. --- */
+#loading-screen .loader-content {
+  animation: gev-boot-in 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gev-boot-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#loading-screen .loader-logo {
+  animation: gev-boot-logo 2.4s ease-in-out infinite;
+}
+
+@keyframes gev-boot-logo {
+  0%,
+  100% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.35));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.7));
+  }
+}
+
+#loading-screen .loader-status::after {
+  content: "_";
+  margin-left: 2px;
+  color: #22d3ee;
+  animation: gev-blink 1s steps(1) infinite;
+}
+
+@keyframes gev-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The globe fades in as the viewer comes up. Opacity only, so pointer
+   coordinates are never disturbed during the intro. */
+.cesium-widget {
+  animation: gev-globe-in 1.2s ease-out;
+}
+
+@keyframes gev-globe-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gev-side-panel,
+  .gev-welcome-dialog,
+  .gev-command-dock,
+  .gev-omnibar,
+  .gev-cockpit,
+  .gev-lens-ribbon__chip--active,
+  .gev-intel-hud__pill,
+  .gev-side-panel__header,
+  #loading-screen .loader-content,
+  #loading-screen .loader-logo,
+  #loading-screen .loader-status::after,
+  .cesium-widget {
+    animation: none;
+  }
+
+  .gev-side-panel,
+  .gev-command-dock,
+  .gev-welcome-dialog,
+  .gev-welcome-dialog__feature,
+  .gev-install-card {
+    transition: none;
+  }
+}
