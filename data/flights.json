@@ -1,9 +1,8 @@
 {"ac":[
-{"hex":"495067","type":"adsb_icao","flight":"SAT447  ","alt_baro":14650,"alt_geom":15150,"gs":289.4,"track":108.75,"baro_rate":1088,"squawk":"5112","emergency":"none","category":"A2","nav_qnh":1012.8,"nav_altitude_mcp":19008,"nav_heading":122.34,"lat":38.317426,"lon":-28.180290,"nic":8,"rc":186,"seen_pos":0.000,"version":2,"nic_baro":1,"nac_p":10,"nac_v":1,"sil":3,"sil_type":"perhour","gva":2,"sda":2,"alert":0,"spi":0,"mlat":[],"tisb":[],"messages":1481,"seen":0.0,"rssi":-3.4,"dst":217.591,"dir":23.2}
 ]
 ,"msg": "No error"
-,"now": 1795118435001
-,"total": 1
-,"ctime": 1795118435001
+,"now": 1795121771500
+,"total": 0
+,"ctime": 1795121771500
 ,"ptime": 0
 }
