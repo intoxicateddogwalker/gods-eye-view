@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build -- --base=/gods-eye-view/
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+          CESIUM_ION_TOKEN: ${{ secrets.CESIUM_ION_TOKEN }}
       - name: Fix Cesium asset path for Pages subpath
         run: |
           # vite-plugin-cesium copies Cesium to dist/<base>/cesium, but the
