@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:45:08+00:00",
+  "generated_at": "2026-11-19T20:37:45+00:00",
   "generated_by": "seer-swarm/0.1.0 (watch Action)",
   "horizon_minutes": 180,
   "lessons": [
@@ -59,7 +59,7 @@
         "quake-global-aftershock",
         "quake-japan-aftershock"
       ],
-      "outcome": null,
+      "outcome": "Came true. Observed: {'quakes_m5_plus': 6, 'oklahoma_quakes': 0, 'wildfires': 96, 'civil_flights': 1, 'military_flights': 413, 'tulsa_wind_kmh': None, 'tulsa_precip_mm': None, 'severe_weather': False}",
       "prediction": "At least one M4.5+ aftershock will occur within 6 hours of the M5.2 quake.",
       "region": {
         "lat": 36.0,
@@ -67,8 +67,8 @@
         "name": "Offshore Japan",
         "radius_km": 300
       },
-      "scored_at": null,
-      "status": "open",
+      "scored_at": "2026-11-19T20:37:45+00:00",
+      "status": "hit",
       "title": "Aftershocks likely after M5.2 quake",
       "window": {
         "end": "2026-11-19T20:00:00+00:00",
@@ -117,6 +117,31 @@
         "end": "2026-11-19T20:24:47+00:00"
       },
       "basis": "7 M5+ quake(s) in 24h (USGS).",
+      "mini_ids": [
+        "quake-global-aftershock",
+        "quake-global-trend"
+      ],
+      "status": "hit",
+      "outcome": "Came true. Observed: {'quakes_m5_plus': 6, 'oklahoma_quakes': 0, 'wildfires': 96, 'civil_flights': 1, 'military_flights': 413, 'tulsa_wind_kmh': None, 'tulsa_precip_mm': None, 'severe_weather': False}",
+      "scored_at": "2026-11-19T20:37:45+00:00"
+    },
+    {
+      "id": "pred-202611192037-q1",
+      "kind": "quake_aftershock",
+      "title": "Aftershocks likely after M5+ quake",
+      "region": {
+        "name": "global",
+        "lat": 0,
+        "lon": 0,
+        "radius_km": 1000
+      },
+      "prediction": "At least one M4.5+ aftershock will occur within 6 hours.",
+      "confidence": 0.72,
+      "window": {
+        "start": "2026-11-19T20:37:45+00:00",
+        "end": "2026-11-20T02:37:45+00:00"
+      },
+      "basis": "6 M5+ quake(s) in 24h (USGS).",
       "mini_ids": [
         "quake-global-aftershock",
         "quake-global-trend"
@@ -173,7 +198,7 @@
     }
   },
   "scoreboard": {
-    "accuracy": 0.571,
+    "accuracy": 0.625,
     "by_kind": {
       "flight_density": {
         "accuracy": 0.5,
@@ -181,8 +206,8 @@
         "misses": 3
       },
       "quake_aftershock": {
-        "accuracy": 0.667,
-        "hits": 2,
+        "accuracy": 0.8,
+        "hits": 4,
         "misses": 1
       },
       "weather_impact": {
@@ -191,9 +216,9 @@
         "misses": 2
       }
     },
-    "hits": 8,
+    "hits": 10,
     "misses": 6,
-    "total_scored": 14
+    "total_scored": 16
   },
   "version": 2
 }
