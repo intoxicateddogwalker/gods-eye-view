@@ -1,0 +1,178 @@
+/* Futuristic high-tech HUD theme.
+   Visual reskin only: deep dark background, neon cyan/teal accent glow,
+   thin monospace technical typography for labels and readouts, subtle
+   grid/scanline overlays, glassy translucent panels with fine borders,
+   and glowing status indicators. The globe and all live data layers
+   are untouched; the overlays are pointer-transparent and very faint
+   so text stays readable and the globe stays the hero. */
+
+:root {
+  --bg-dark: #030509;
+  --glass-bg: rgba(7, 12, 18, 0.66);
+  --glass-border: rgba(94, 234, 255, 0.22);
+  --glass-border-hover: rgba(94, 234, 255, 0.45);
+  --accent: #22d3ee;
+  --accent-teal: #2dd4bf;
+  --accent-glow: rgba(34, 211, 238, 0.55);
+  --accent-dim: rgba(34, 211, 238, 0.14);
+  --text-primary: #eaf6ff;
+  --text-secondary: rgba(220, 238, 248, 0.62);
+}
+
+html,
+body {
+  background: #030509;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(34, 211, 238, 0.07), transparent 60%),
+    radial-gradient(900px 500px at 85% 110%, rgba(45, 212, 191, 0.05), transparent 60%),
+    #030509;
+}
+
+/* Subtle blueprint grid over the globe, fading toward the screen edges. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+}
+
+/* Fine scanlines over everything, breathing almost imperceptibly. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 3px);
+  animation: gev-hud-scanline-breathe 7s ease-in-out infinite;
+}
+
+@keyframes gev-hud-scanline-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Glassy translucent panels with fine cyan-tinted borders. */
+.gev-side-panel,
+.gev-command-dock,
+.gev-omnibar,
+.gev-cockpit,
+.gev-welcome-dialog,
+.gev-coordinates,
+.gev-viewport-controls,
+.gev-intel-hud__pill {
+  background: linear-gradient(180deg, rgba(10, 18, 26, 0.78), rgba(6, 10, 16, 0.84));
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  border: 1px solid rgba(94, 234, 255, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(34, 211, 238, 0.07);
+}
+
+/* Thin monospace technical typography for labels and readouts. */
+.gev-cockpit__title,
+.gev-command-dock__label,
+.gev-side-panel__title,
+.gev-status__label,
+.gev-status__value,
+.gev-coordinates__value,
+.gev-omnibar__status,
+.gev-intel-hud__label,
+.gev-lens-ribbon__chip,
+.gev-welcome-dialog__eyebrow,
+.gev-loading-screen__title {
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+.gev-command-dock__label,
+.gev-side-panel__title,
+.gev-status__label,
+.gev-intel-hud__label,
+.gev-lens-ribbon__chip {
+  text-transform: uppercase;
+}
+
+/* Readouts glow faintly cyan, like lit instrument text. */
+.gev-status__value,
+.gev-coordinates__value {
+  color: #a5f3fc;
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.35);
+}
+
+/* Glowing status indicators. */
+.gev-live-dot,
+.gev-status__dot,
+.gev-intel-hud__dot {
+  background: #22d3ee;
+  box-shadow:
+    0 0 8px rgba(34, 211, 238, 0.9),
+    0 0 18px rgba(34, 211, 238, 0.55);
+  animation: gev-hud-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes gev-hud-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.82);
+  }
+}
+
+/* Neon accent glow on active and primary controls. */
+.gev-lens-ribbon__chip--active {
+  border-color: rgba(34, 211, 238, 0.8);
+  color: #dff3ff;
+  box-shadow:
+    0 0 16px rgba(34, 211, 238, 0.35),
+    inset 0 0 12px rgba(34, 211, 238, 0.12);
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+}
+
+.gev-cockpit__action--primary {
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.35);
+}
+
+.gev-side-panel__close:hover,
+.gev-viewport-controls__button:hover {
+  border-color: rgba(34, 211, 238, 0.7);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.3);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 1px solid rgba(34, 211, 238, 0.8);
+  outline-offset: 2px;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after,
+  .gev-live-dot,
+  .gev-status__dot,
+  .gev-intel-hud__dot {
+    animation: none;
+  }
+}
