@@ -25,6 +25,15 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build -- --base=/gods-eye-view/
+      - name: Fix Cesium asset path for Pages subpath
+        run: |
+          # vite-plugin-cesium copies Cesium to dist/<base>/cesium, but the
+          # script tag it injects expects it at dist/cesium. Move it up
+          # so /gods-eye-view/cesium/Cesium.js resolves on GitHub Pages.
+          if [ -d dist/gods-eye-view/cesium ]; then
+            mv dist/gods-eye-view/cesium dist/cesium
+            rmdir dist/gods-eye-view
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
