@@ -1,0 +1,47 @@
+# Seer watch — GitHub Action (add to the fork repo)
+#
+# Path in the repo: .github/workflows/seer-watch.yml
+# Runs every 15 minutes + on demand. Free GitHub Actions minutes.
+#
+# What it does: runs seer-watch.py (same folder in the repo root),
+# which pulls the keyless feeds, runs the ACTIVE minis' rule checks,
+# scores expired predictions per mini, and writes
+# data/seer/predictions.json + data/seer/minis.json — committing only
+# when they changed.
+#
+# It does NOT run the LLM or Chronos — those live on the HF Space
+# (ZeroGPU, on demand). This Action is the always-on, CPU-cheap half
+# of the swarm. Chronos in the Action is phase 1.5.
+#
+# Files the repo needs for this workflow: seer-watch.py + swarm.py
+# (both in the repo root — see INTEGRATION.md).
+
+name: Seer watch
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run the swarm watch
+        run: python3 seer-watch.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "seer-swarm"
+          git config user.email "seer-swarm@users.noreply.github.com"
+          git add data/seer/predictions.json data/seer/minis.json
+          git diff --cached --quiet || git commit -m "Seer watch: score + predict ($(date -u +%Y-%m-%dT%H:%M))" && git push
