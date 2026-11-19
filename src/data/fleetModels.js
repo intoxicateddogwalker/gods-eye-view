@@ -26,6 +26,8 @@ import { isAidToNavigation } from './vesselTypes.js';
 
 /** Where the model set is served, relative to the application base. */
 export const FLEET_MODEL_BASE = '/models/fleet/';
+/** Application base path for model URLs. */
+const APP_BASE = import.meta.env?.BASE_URL || '/';
 
 /**
  * Longest and widest hulls afloat, metres (Seawise Giant 458 m; the TI
@@ -377,7 +379,7 @@ export function fleetModelSpec(set, name, length, { beam } = {}) {
   const elevationM = set.types.transit?.elevation?.[name] || 0;
   return Object.freeze({
     model: name,
-    url: `${import.meta.env?.BASE_URL || '/'}${FLEET_MODEL_BASE.slice(1) + model.file}`,
+    url: `${APP_BASE}${FLEET_MODEL_BASE.slice(1) + model.file}`,
     category: model.category,
     icon: model.icon,
     length: model.length * scaleXYZ[0],
@@ -587,7 +589,7 @@ export function fleetModelSetLoading() {
  * @returns {Promise<object>}
  */
 export function loadFleetModelSet({
-  resolveAsset = (url) => `${import.meta.env?.BASE_URL || '/'}${url.replace(/^\//, '')}`,
+  resolveAsset = (url) => `${APP_BASE}${url.replace(/^\//, '')}`,
   fetchImpl = globalThis.fetch,
   now = () => globalThis.performance?.now?.() ?? Date.now(),
 } = {}) {
