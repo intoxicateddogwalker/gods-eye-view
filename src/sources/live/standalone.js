@@ -12,6 +12,7 @@ import {
 } from './aircraft.js';
 import { normalizeVesselTrack, vesselSnapshot } from './vessels.js';
 import { parsePlanespottersPhoto } from '../../data/planespottersPhoto.js';
+import { normalizeAdsbLolPointResponse } from '../../data/adsbLolFallback.js';
 import {
   MMSI,
   openVesselPhotosUrl,
@@ -116,6 +117,41 @@ function feedSource(response, fallback) {
     ? named.trim().slice(0, 80)
     : fallback;
 }
+// adsb.lol direct fallback; point radius 250 nm, as the server uses.
+const ADSB_LOL_POINT = 'https://api.adsb.lol/v2/lat/';
+const ADSB_LOL_MILITARY = 'https://api.adsb.lol/v2/mil';
+const ADSB_LOL_RADIUS_NM = 250;
+function adsbLolPointUrl(lat, lon) {
+  return `${ADSB_LOL_POINT}${lat}/lon/${lon}/dist/${ADSB_LOL_RADIUS_NM}`;
+}
+// Flights around a point from adsb.lol, when /api/flights fails.
+async function adsbLolFlightSnapshot(fetchImpl, params, { signal, now }) {
+  const { response, payload } = await readResponse(
+    fetchImpl,
+    adsbLolPointUrl(params.get('lat'), params.get('lon')),
+    { signal },
+    'Flights',
+  );
+  if (!response.ok) throw httpError(response, 'Flights');
+  const snapshot = openSkySnapshot(normalizeAdsbLolPointResponse(payload), {
+    source: 'adsb.lol',
+    coverage: '250 nm around the view centre',
+    now: now(),
+  });
+  return { ...snapshot, status: response.status };
+}
+
+// Military feed from adsb.lol, when /api/military fails.
+async function adsbLolMilitary(fetchImpl, { signal }) {
+  const { response, payload } = await readResponse(
+    fetchImpl,
+    ADSB_LOL_MILITARY,
+    { signal },
+    'Military aircraft',
+  );
+  if (!response.ok) throw httpError(response, 'Military aircraft');
+  return { response, payload };
+}
 
 /** The flights feed (/api/flights); no request starts during construction. */
 export function createFlightSource({
@@ -137,7 +173,10 @@ export function createFlightSource({
         { signal },
         'Flights',
       );
-      if (!response.ok) throw openSkyError(response);
+      if (!response.ok) {
+        if (!params.size) throw openSkyError(response);
+        return adsbLolFlightSnapshot(fetchImpl, params, { signal, now });
+      }
       return {
         ...openSkySnapshot(payload, {
           // A fallback provider names itself in X-Flight-Source.
@@ -196,7 +235,10 @@ export function createMilitarySource({
         { signal },
         'Military aircraft',
       );
-      if (!response.ok) throw httpError(response, 'Military aircraft');
+      if (!response.ok) {
+        const fallback = await adsbLolMilitary(fetchImpl, { signal });
+        return readsbIdentities(fallback.payload);
+      }
       return readsbIdentities(payload);
     },
     async getSnapshot(_query = {}, { signal } = {}) {
@@ -206,7 +248,18 @@ export function createMilitarySource({
         { signal },
         'Military aircraft',
       );
-      if (!response.ok) throw httpError(response, 'Military aircraft');
+      if (!response.ok) {
+        const fallback = await adsbLolMilitary(fetchImpl, { signal });
+        return {
+          ...readsbSnapshot(fallback.payload, {
+            source: 'adsb.lol',
+            observedAtMs: now(),
+            now: now(),
+            stale: false,
+          }),
+          status: fallback.response.status,
+        };
+      }
       const age = finite(header(response, 'x-feed-age-ms'));
       return {
         ...readsbSnapshot(payload, {
