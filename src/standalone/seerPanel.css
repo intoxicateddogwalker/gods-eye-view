@@ -24,3 +24,6 @@
 .seer-empty{opacity:.7;font-size:13px}
 .seer-dim{opacity:.65}
 .seer-foot{font-size:11px;margin-top:10px}
+/* Keep the toggle clear of the top-right HUD status text. */
+.seer-toggle{top:48px}
+#seer-panel-root{top:100px;max-height:calc(100vh - 120px)}
