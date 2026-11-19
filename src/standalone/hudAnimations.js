@@ -14,6 +14,9 @@
 // app's own camera verbs. Selecting a layer or contact already flies
 // the camera smoothly through the app's eased fly-to, and this rotation
 // stands down while any such flight is in progress.
+//
+// All idle timing uses performance.now(), the same clock as the
+// requestAnimationFrame timestamps this module compares against.
 
 if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   const prefersReducedMotion =
@@ -23,22 +26,22 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   if (!prefersReducedMotion) {
     // One full turn takes about twelve minutes: slow, smooth, ambient.
     const ROTATION_DEGREES_PER_SECOND = 0.5;
-    const IDLE_MILLISECONDS = 15000;
-    const STARTUP_DELAY_MILLISECONDS = 8000;
+    const IDLE_MILLISECONDS = 10000;
+    const STARTUP_DELAY_MILLISECONDS = 3000;
     const POLL_INTERVAL_MILLISECONDS = 500;
-    const POLL_TIMEOUT_MILLISECONDS = 60000;
+    const POLL_TIMEOUT_MILLISECONDS = 300000;
     // One frame of our own rotation moves the camera only a few
     // kilometres at globe height; anything moving much faster than
     // that is the user or the app, so the rotation stands down.
     const EXTERNAL_MOVE_METERS = 20000;
 
-    let lastInteraction = Date.now();
+    let lastInteraction = performance.now();
     let lastCameraPosition = null;
     let lastTick = 0;
     let rotationFailed = false;
 
     const markInteraction = () => {
-      lastInteraction = Date.now();
+      lastInteraction = performance.now();
     };
 
     ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((type) => {
@@ -108,7 +111,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
         if (getViewer()) {
           lastTick = performance.now();
           window.setTimeout(() => {
-            lastInteraction = Date.now();
+            lastInteraction = performance.now();
             requestAnimationFrame(rotateStep);
           }, STARTUP_DELAY_MILLISECONDS);
           return;
