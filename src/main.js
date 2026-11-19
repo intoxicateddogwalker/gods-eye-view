@@ -23,3 +23,5 @@ application.start().catch((error) => {
 export { application };
 // Side-effect import: adds the "Add to Home Screen" button and guide.
 import './standalone/installPrompt.js';
+// Side-effect import: slow idle auto-rotation of the globe.
+import './standalone/hudAnimations.js';
