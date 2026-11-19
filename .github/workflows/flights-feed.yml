@@ -1,0 +1,29 @@
+name: Update flights feed
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch live flights and military data
+        run: |
+          mkdir -p data
+          curl -fsSL -o data/flights.json 'https://api.adsb.lol/v2/lat/35/lon/-30/dist/250'
+          curl -fsSL -o data/military.json 'https://api.adsb.lol/v2/mil'
+
+      - name: Commit updated feed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/flights.json data/military.json
+          git diff --cached --quiet || git commit -m 'Update live flights feed'
+          git push
