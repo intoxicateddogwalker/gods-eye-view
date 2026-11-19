@@ -2608,11 +2608,11 @@
       "name": "Tulsa region watcher",
       "region": "Tulsa",
       "status": "active",
-      "accuracy": null,
-      "trust": 0.5,
-      "predictions_made": 0,
+      "accuracy": 0.0,
+      "trust": 0.475,
+      "predictions_made": 1,
       "hits": 0,
-      "misses": 0,
+      "misses": 1,
       "last_active": null
     },
     {
@@ -5208,11 +5208,11 @@
       "name": "north-atlantic flight watcher",
       "region": "north-atlantic",
       "status": "standby",
-      "accuracy": null,
-      "trust": 0.5,
-      "predictions_made": 0,
+      "accuracy": 0.0,
+      "trust": 0.475,
+      "predictions_made": 1,
       "hits": 0,
-      "misses": 0,
+      "misses": 1,
       "last_active": null
     },
     {
@@ -5715,11 +5715,11 @@
       "name": "Global flight-density watcher",
       "region": "global",
       "status": "active",
-      "accuracy": null,
-      "trust": 0.5,
-      "predictions_made": 0,
+      "accuracy": 0.0,
+      "trust": 0.475,
+      "predictions_made": 1,
       "hits": 0,
-      "misses": 0,
+      "misses": 1,
       "last_active": null
     },
     {
@@ -6092,11 +6092,11 @@
       "name": "oklahoma weather watcher",
       "region": "oklahoma",
       "status": "active",
-      "accuracy": null,
-      "trust": 0.5,
-      "predictions_made": 0,
+      "accuracy": 0.0,
+      "trust": 0.475,
+      "predictions_made": 1,
       "hits": 0,
-      "misses": 0,
+      "misses": 1,
       "last_active": null
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T16:31:56+00:00",
+  "generated_at": "2026-11-19T17:37:58+00:00",
   "generated_by": "seer-swarm/0.1.0 (watch Action)",
   "horizon_minutes": 180,
   "lessons": [
@@ -12,6 +12,16 @@
       "lesson": "Flight-density calls made on a single 5-minute bucket are noise \u2014 use the 30-minute trend instead.",
       "prediction_id": "pred-202611180900-1",
       "recorded_at": "2026-11-18T12:00:00+00:00"
+    },
+    {
+      "prediction_id": "pred-202611191400-1",
+      "lesson": "Tulsa wind gusts build through the afternoon: predicted 'Wind gusts in Tulsa will rise above 40 km/h within the next 3 hours.' but it did not happen. Check the basis before repeating it.",
+      "recorded_at": "2026-11-19T17:37:58+00:00"
+    },
+    {
+      "prediction_id": "pred-202611191400-3",
+      "lesson": "North Atlantic traffic stays busy into the evening: predicted 'Civil flight counts on the North Atlantic corridor will rise through the next 3 hours.' but it did not happen. Check the basis before repeating it.",
+      "recorded_at": "2026-11-19T17:37:58+00:00"
     }
   ],
   "predictions": [
@@ -24,7 +34,7 @@
         "weather-oklahoma",
         "region-tulsa"
       ],
-      "outcome": null,
+      "outcome": "Did not come true. Observed: {'quakes_m5_plus': 6, 'oklahoma_quakes': 0, 'wildfires': 96, 'civil_flights': 0, 'military_flights': 383, 'tulsa_wind_kmh': 12.4, 'tulsa_precip_mm': 0.0, 'severe_weather': False}",
       "prediction": "Wind gusts in Tulsa will rise above 40 km/h within the next 3 hours.",
       "region": {
         "lat": 36.15,
@@ -32,8 +42,8 @@
         "name": "Tulsa, Oklahoma",
         "radius_km": 80
       },
-      "scored_at": null,
-      "status": "open",
+      "scored_at": "2026-11-19T17:37:58+00:00",
+      "status": "miss",
       "title": "Tulsa wind gusts build through the afternoon",
       "window": {
         "end": "2026-11-19T17:00:00+00:00",
@@ -74,7 +84,7 @@
         "flights-global-density",
         "flights-north-atlantic"
       ],
-      "outcome": null,
+      "outcome": "Did not come true. Observed: {'quakes_m5_plus': 6, 'oklahoma_quakes': 0, 'wildfires': 96, 'civil_flights': 0, 'military_flights': 383, 'tulsa_wind_kmh': 12.4, 'tulsa_precip_mm': 0.0, 'severe_weather': False}",
       "prediction": "Civil flight counts on the North Atlantic corridor will rise through the next 3 hours.",
       "region": {
         "lat": 45.0,
@@ -82,8 +92,8 @@
         "name": "North Atlantic",
         "radius_km": 1500
       },
-      "scored_at": null,
-      "status": "open",
+      "scored_at": "2026-11-19T17:37:58+00:00",
+      "status": "miss",
       "title": "North Atlantic traffic stays busy into the evening",
       "window": {
         "end": "2026-11-19T17:00:00+00:00",
@@ -163,12 +173,12 @@
     }
   },
   "scoreboard": {
-    "accuracy": 0.667,
+    "accuracy": 0.571,
     "by_kind": {
       "flight_density": {
-        "accuracy": 0.6,
+        "accuracy": 0.5,
         "hits": 3,
-        "misses": 2
+        "misses": 3
       },
       "quake_aftershock": {
         "accuracy": 0.667,
@@ -176,14 +186,14 @@
         "misses": 1
       },
       "weather_impact": {
-        "accuracy": 0.75,
+        "accuracy": 0.6,
         "hits": 3,
-        "misses": 1
+        "misses": 2
       }
     },
     "hits": 8,
-    "misses": 4,
-    "total_scored": 12
+    "misses": 6,
+    "total_scored": 14
   },
   "version": 2
 }
